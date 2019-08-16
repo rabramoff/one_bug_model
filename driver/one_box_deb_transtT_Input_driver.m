@@ -1,13 +1,16 @@
 function one_box_deb_transtT_Input_driver(Is,Ic,dIs,dIc)
 %Ms: C protection equivalent of mineral surface, 500, 1000, 2000
 %Tref: reference temperature, 290 or 280 K
-
-%clc;
+%Is: polymer carbon input
+%Ic: monomer carbon input
+%dIs: perturbation to polymer input
+%dIc: perturbation to monomer input
+%clc
 global vid;
 global par;
 opt=1;%plastic by default
 
-[status,results]=system('pwd');
+[~,results]=system('pwd');
 sstrs=strsplit(results,'/one_bug_model');
 
 matfldir=[sstrs{1},'/one_bug_model/mat_files/transtT/'];
@@ -38,7 +41,7 @@ iofile=[matfldir,'one_box_deb_transtT_Is',num2str(Is),'_Ic',num2str(Ic),'_dIs',n
 
 %do spin up for 4000 years
 
-[doc,micb,micc,ee,som,rco2,cue]=one_box_ss(par);
+[doc,micb,micc,ee,som,~,~]=one_box_ss(par);
 
 %define initial conditions
 x0(vid.som)=som;
