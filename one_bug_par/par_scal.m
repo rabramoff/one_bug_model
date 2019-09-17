@@ -28,13 +28,15 @@ if(opt==0)
 else
     %plastic microbe
     sc=[875.965050,611.427356,386.294367,57.653333,0.536542,546.713826,120.666087];
+    sc=[875.965050,611.427356,386.294367,57.653333,0.536542,546.713826,120.666087]*0.12;  
+    %sc(1)=sc(1)*2.;
 end
 par1.decay_mic = decay_mic0.*sc(1); 
 par1.decay_ee  = decay_ee0.*sc(2);
 par1.pro_ee    = pro_ee0.*sc(3);
 par1.mr_micb   = mr_micb0.*sc(4);
 par1.kappa_micb= kappa_micb0.*sc(5);
-par1.vmax_micb = vmax_micb0.*sc(6);
+par1.vmax_micb = vmax_micb0.*sc(6)*1.0;
 par1.vmax_ee   = vmax_ee0.*sc(7);
 
 par1.decay_micb0=decay_micb00.*sc(1);
