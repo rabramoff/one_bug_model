@@ -27,7 +27,7 @@ vid.cout=9;
 
 
 par=set_par_default();
-par=par_scal(par,opt);
+%par=par_scal(par,opt);
 par.M1=5;
 %frc_soc=.8;
 par.input_som=Is./365;
@@ -52,15 +52,15 @@ x0(vid.fdoc)=0;
 x0(vid.cout)=0;
 %define the solver
 
-xpar=[249.544170969785   5341.422691388677   5.617549086429];
-TEa=set_Ea_default();
+%xpar=[249.544170969785   5341.422691388677   5.617549086429];
+%TEa=set_Ea_default();
 
-Tref=293.15;
+%Tref=293.15;
 
 par0=par;
 
-T_fact0=fact_murphy(Tref,xpar);
-Tfrz=293.15;
+%T_fact0=fact_murphy(Tref,xpar);
+%Tfrz=293.15;
 
 
 %do transient run 120 years
@@ -70,11 +70,11 @@ tend=365*200;
 
 %introduce the temperature effect of mineral adsorption
 
-A1=0;         %seasonal amplitude
-A2=0;          %daily amplitude
-w1=2.*pi/365;
-w2=2.*pi;
-kend=tend/dt;
+% A1=0;         %seasonal amplitude
+% A2=0;          %daily amplitude
+% w1=2.*pi/365;
+% w2=2.*pi;
+ kend=tend/dt;
 
 TOUT_ctl=zeros(kend+1,1);
 YOUT_ctl=zeros(kend+1,9);
@@ -83,20 +83,20 @@ TOUT_ctl(1,:)=0;
 TEMP=zeros(kend,1);
 for kk = 1 : kend
     t=(kk-0.5)*dt;
-    if(t>100*365)        
-        par0.input_som=(Is+dIs)./365;
-        par0.input_doc=(Ic+dIc)./365;
-    else
+%     if(t>100*365)        
+%         par0.input_som=(Is+dIs)./365;
+%         par0.input_doc=(Ic+dIc)./365;
+%     else
         par0.input_som=Is./365;
         par0.input_doc=Ic./365;
-    end
-    temp=Tfrz+A1.*sin(w1.*t-pi/2)+A2.*sin(w2.*t);
-    TEMP(kk)=temp;
-    T_fact=fact_murphy(temp,xpar);
-    fref=T_fact./T_fact0.*(temp./Tref);
-    Tinv=1./temp-1./Tref;
+%    end
+%     temp=Tfrz+A1.*sin(w1.*t-pi/2)+A2.*sin(w2.*t);
+%     TEMP(kk)=temp;
+%     T_fact=fact_murphy(temp,xpar);
+%     fref=T_fact./T_fact0.*(temp./Tref);
+%     Tinv=1./temp-1./Tref;
     
-    par=par_scal_temp(par0, TEa, fref, Tinv);
+%     par=par_scal_temp(par0, TEa, fref, Tinv);
     
     YOUT_ctl(kk+1,:)=adptmbbks1(@one_box_deb,YOUT_ctl(kk,:),TOUT_ctl(kk),dt);
     TOUT_ctl(kk+1)=TOUT_ctl(kk)+dt;
